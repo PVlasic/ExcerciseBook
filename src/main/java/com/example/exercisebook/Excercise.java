@@ -19,6 +19,9 @@ public class Excercise {
     @ColumnInfo(name = "numberOfSets")
     int numberOfSets;
 
+    @ColumnInfo(name = "wieght")
+    int weight;
+
     public int getId(int id){
         return this.Id;
     }
@@ -45,5 +48,13 @@ public class Excercise {
 
     public int getNumberOfSets(){
         return this.numberOfSets;
+    }
+
+    public void setWeight(int weight){
+        this.weight = weight;
+    }
+
+    public int getWeight(){
+        return this.weight;
     }
 }
