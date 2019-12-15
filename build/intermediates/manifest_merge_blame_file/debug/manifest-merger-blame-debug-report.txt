@@ -41,6 +41,13 @@
 24-->C:\Users\Petar Vlasic\AndroidStudioProjects\ExerciseBook\app\src\main\AndroidManifest.xml:16:27-74
 25            </intent-filter>
 26        </activity>
-27    </application>
-28
-29</manifest>
+27
+28        <service
+28-->[androidx.room:room-runtime:2.2.2] C:\Users\Petar Vlasic\.gradle\caches\transforms-2\files-2.1\16bae69b8e7536ae1a363b2679cefb07\room-runtime-2.2.2\AndroidManifest.xml:25:9-27:40
+29            android:name="androidx.room.MultiInstanceInvalidationService"
+29-->[androidx.room:room-runtime:2.2.2] C:\Users\Petar Vlasic\.gradle\caches\transforms-2\files-2.1\16bae69b8e7536ae1a363b2679cefb07\room-runtime-2.2.2\AndroidManifest.xml:26:13-74
+30            android:exported="false" />
+30-->[androidx.room:room-runtime:2.2.2] C:\Users\Petar Vlasic\.gradle\caches\transforms-2\files-2.1\16bae69b8e7536ae1a363b2679cefb07\room-runtime-2.2.2\AndroidManifest.xml:27:13-37
+31    </application>
+32
+33</manifest>
