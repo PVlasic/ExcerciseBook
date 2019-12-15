@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "User")
 public class User {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     int Id;
 
     @ColumnInfo(name = "firstName")
@@ -15,9 +15,6 @@ public class User {
     @ColumnInfo(name = "lastName")
     String lastName;
 
-    public void setId(int id){
-        this.Id = id;
-    }
     public int getId(int id){
         return this.Id;
     }

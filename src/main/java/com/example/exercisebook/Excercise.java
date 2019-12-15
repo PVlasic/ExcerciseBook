@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Excercise")
 public class Excercise {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     int Id;
 
     //lookup on exercise day
@@ -19,9 +19,6 @@ public class Excercise {
     @ColumnInfo(name = "numberOfSets")
     int numberOfSets;
 
-    public void setId(int id){
-        this.Id = id;
-    }
     public int getId(int id){
         return this.Id;
     }

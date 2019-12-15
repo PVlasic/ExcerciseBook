@@ -8,7 +8,7 @@ import java.time.OffsetDateTime;
 
 @Entity(tableName = "ExerciseDay")
 public class ExcerciseDay {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     int Id;
 
     //lookup on user so we know which user had this exercise
@@ -20,9 +20,6 @@ public class ExcerciseDay {
 //    @ColumnInfo(name = "dateOfExcercise")
 //    OffsetDateTime dateTime;
 
-    public void setId(int id){
-        this.Id = id;
-    }
     public int getId(int id){
         return this.Id;
     }

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "ExcerciseSet")
 public class ExcerciseSet {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     int Id;
 
     @ColumnInfo(name = "excerciseId")
@@ -14,10 +14,7 @@ public class ExcerciseSet {
 
     @ColumnInfo(name = "numberOfRepetitions")
     int numberOfRepetitions;
-
-    public void setId(int id){
-        this.Id = id;
-    }
+    
     public int getId(int id){
         return this.Id;
     }
