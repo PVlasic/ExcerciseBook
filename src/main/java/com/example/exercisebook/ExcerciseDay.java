@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 import java.time.OffsetDateTime;
 
-@Entity
+@Entity(tableName = "ExerciseDay")
 public class ExcerciseDay {
     @PrimaryKey
     int Id;
@@ -20,5 +20,17 @@ public class ExcerciseDay {
 //    @ColumnInfo(name = "dateOfExcercise")
 //    OffsetDateTime dateTime;
 
+    public void setId(int id){
+        this.Id = id;
+    }
+    public int getId(int id){
+        return this.Id;
+    }
+    public void setParent(int userId){
+        this.userId = userId;
+    }
 
+    public int getParentId(){
+        return this.userId;
+    }
 }

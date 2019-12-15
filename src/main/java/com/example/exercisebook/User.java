@@ -4,16 +4,37 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "User")
 public class User {
     @PrimaryKey
     int Id;
 
-    @ColumnInfo(name = 'firstName')
+    @ColumnInfo(name = "firstName")
     String firstName;
 
-    @ColumnInfo(name = 'lastName')
+    @ColumnInfo(name = "lastName")
     String lastName;
+
+    public void setId(int id){
+        this.Id = id;
+    }
+    public int getId(int id){
+        return this.Id;
+    }
+
+    public void setFirstName(String name){
+        this.firstName = name;
+    }
+
+    public String getFirstName(){
+        return this.firstName;
+    }
+
+    public void setLastName(String lastName){
+        this.lastName = lastName;
+    }
+
+
 
 
 }
