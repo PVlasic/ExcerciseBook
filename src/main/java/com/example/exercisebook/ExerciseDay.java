@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import java.time.OffsetDateTime;
 
 @Entity(tableName = "ExerciseDay")
-public class ExcerciseDay {
+public class ExerciseDay {
     @PrimaryKey(autoGenerate = true)
     int Id;
 

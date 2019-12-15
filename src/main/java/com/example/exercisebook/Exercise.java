@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Excercise")
-public class Excercise {
+@Entity(tableName = "Exercise")
+public class Exercise {
     @PrimaryKey(autoGenerate = true)
     int Id;
 
