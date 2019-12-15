@@ -9,7 +9,7 @@ public class ExerciseSet {
     @PrimaryKey(autoGenerate = true)
     int Id;
 
-    @ColumnInfo(name = "excerciseId")
+    @ColumnInfo(name = "exerciseId")
     int excerciseId;
 
     @ColumnInfo(name = "numberOfRepetitions")
