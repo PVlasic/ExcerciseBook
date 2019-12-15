@@ -14,7 +14,7 @@ public class ExcerciseSet {
 
     @ColumnInfo(name = "numberOfRepetitions")
     int numberOfRepetitions;
-    
+
     public int getId(int id){
         return this.Id;
     }
