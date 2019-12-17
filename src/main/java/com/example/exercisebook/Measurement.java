@@ -4,108 +4,112 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.time.OffsetDateTime;
+
 @Entity(tableName = "Measurement")
 public class Measurement {
     @PrimaryKey(autoGenerate = true)
-    int Id;
+    private Integer Id;
 
-    @ColumnInfo(name = "userId")
-    int userId;
-
-    //date of taking the measurement!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private Integer userId;
 
 
+//date of taking the measurement
+    //private OffsetDateTime date;
 
-    @ColumnInfo(name = "height")
-    int height;
-
-    @ColumnInfo(name = "weight")
-    int weight;
-
-    @ColumnInfo(name = "shoulderWidth")
-    int shoulderWidth;
-
-    @ColumnInfo(name = "chestWidth")
-    int chestWidth;
-
-    @ColumnInfo(name = "waistWidth")
-    int waistWidth;
-
-    @ColumnInfo(name = "hipsWidth")
-    int hipsWidth;
-
-    @ColumnInfo(name = "thighsWidth")
-    int thighsWidth;
-
-    @ColumnInfo(name = "upperArmWidth")
-    int upperArmWidth;
+    private Double height;
+    private Double weight;
+    private Double shoulderWidth;
+    private Double chestWidth;
+    private Double waistWidth;
+    private Double hipsWidth;
+    private Double thighsWidth;
+    private Double upperArmWidth;
 
 
-    public int getId() {
+    public Integer getId() {
         return Id;
     }
+    public void setId(Integer id) {
+        Id = id;
+    }
 
-    public int getHeight() {
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+//    public OffsetDateTime getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(OffsetDateTime date) {
+//        this.date = date;
+//    }
+
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(Double height) {
         this.height = height;
     }
 
-    public int getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
-    public int getShoulderWidth() {
+    public Double getShoulderWidth() {
         return shoulderWidth;
     }
 
-    public void setShoulderWidth(int shoulderWidth) {
+    public void setShoulderWidth(Double shoulderWidth) {
         this.shoulderWidth = shoulderWidth;
     }
 
-    public int getChestWidth() {
+    public Double getChestWidth() {
         return chestWidth;
     }
 
-    public void setChestWidth(int chestWidth) {
+    public void setChestWidth(Double chestWidth) {
         this.chestWidth = chestWidth;
     }
 
-    public int getWaistWidth() {
+    public Double getWaistWidth() {
         return waistWidth;
     }
 
-    public void setWaistWidth(int waistWidth) {
+    public void setWaistWidth(Double waistWidth) {
         this.waistWidth = waistWidth;
     }
 
-    public int getHipsWidth() {
+    public Double getHipsWidth() {
         return hipsWidth;
     }
 
-    public void setHipsWidth(int hipsWidth) {
+    public void setHipsWidth(Double hipsWidth) {
         this.hipsWidth = hipsWidth;
     }
 
-    public int getThighsWidth() {
+    public Double getThighsWidth() {
         return thighsWidth;
     }
 
-    public void setThighsWidth(int thighsWidth) {
+    public void setThighsWidth(Double thighsWidth) {
         this.thighsWidth = thighsWidth;
     }
 
-    public int getUpperArmWidth() {
+    public Double getUpperArmWidth() {
         return upperArmWidth;
     }
 
-    public void setUpperArmWidth(int upperArmWidth) {
+    public void setUpperArmWidth(Double upperArmWidth) {
         this.upperArmWidth = upperArmWidth;
     }
 

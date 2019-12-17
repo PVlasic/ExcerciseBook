@@ -4,33 +4,31 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.HashMap;
+
 @Entity(tableName = "Exercise")
 public class Exercise {
     @PrimaryKey(autoGenerate = true)
-    int Id;
+    Integer Id;
 
-    //lookup on exercise day
-    @ColumnInfo(name = "dayId")
-    int dayId;
+    Integer dayId;
 
-    @ColumnInfo(name = "exerciseName")
     String excerciseName;
+    Integer numberOfSets;
+    Double weight;
+    //public HashMap<Integer, Integer> repetitionsBySet;
 
-    @ColumnInfo(name = "numberOfSets")
-    int numberOfSets;
 
-    @ColumnInfo(name = "wieght")
-    int weight;
 
-    public int getId(int id){
+    public Integer getId(Integer id){
         return this.Id;
     }
 
-    public void setParent(int dayId){
+    public void setParent(Integer dayId){
         this.dayId = dayId;
     }
 
-    public int getParent(){
+    public Integer getParent(){
         return this.dayId;
     }
 
@@ -42,19 +40,19 @@ public class Exercise {
         return this.excerciseName;
     }
 
-    public void setNumberOfSets(int number){
+    public void setNumberOfSets(Integer number){
         this.numberOfSets = number;
     }
 
-    public int getNumberOfSets(){
+    public Integer getNumberOfSets(){
         return this.numberOfSets;
     }
 
-    public void setWeight(int weight){
+    public void setWeight(Double weight){
         this.weight = weight;
     }
 
-    public int getWeight(){
+    public Double getWeight(){
         return this.weight;
     }
 }

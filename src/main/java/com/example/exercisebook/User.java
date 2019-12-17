@@ -7,18 +7,19 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "User")
 public class User {
     @PrimaryKey(autoGenerate = true)
-    int Id;
+    private Integer Id;
 
-    @ColumnInfo(name = "firstName")
-    String firstName;
+    private String firstName;
 
-    @ColumnInfo(name = "lastName")
-    String lastName;
+    private String lastName;
 
-    public int getId(int id){
-        return this.Id;
+    public Integer getId() {
+        return Id;
     }
 
+    public void setId(Integer id) {
+        Id = id;
+    }
     public void setFirstName(String name){
         this.firstName = name;
     }
