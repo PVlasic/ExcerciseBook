@@ -26,5 +26,5 @@ public interface UserDAO {
     @Update
     void update(User user);
 
-    
+
 }
