@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int ADD_USER_REQUEST = 1;
     public static final int EDIT_USER_REQUEST = 2;
 
+
     private UserViewModel userViewModel;
 
     @Override
@@ -74,6 +75,15 @@ public class MainActivity extends AppCompatActivity {
                 //TODO: add other view models and methods which will delete all user related objects
                 userViewModel.delete(user);
                 Toast.makeText(MainActivity.this, "User deleted.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        adapter.setOnUserNameClickListener(new UserAdapter.OnUserNameClickListener() {
+            @Override
+            public void OnUserNameClickListener(User user) {
+                Intent intent = new Intent(MainActivity.this, DisplayTabActivity.class);
+                intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, user.getId());
+                startActivity(intent);
             }
         });
     }

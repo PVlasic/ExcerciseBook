@@ -16,6 +16,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
     private List<User> users = new ArrayList<>();
     private OnItemButtonClickListener listener;
     private OnDeleteItemButtonClickListener deleteListener;
+    private OnUserNameClickListener userNameListener;
     @NonNull
     @Override
     public UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,9 +41,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
         notifyDataSetChanged();
     }
 
-    public User getUserAt(int position){
-        return users.get(position);
-    }
+
 
     class UserHolder extends RecyclerView.ViewHolder {
         private TextView userName;
@@ -67,8 +66,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if(listener != null && position != RecyclerView.NO_POSITION){
+                    if(deleteListener!= null && position != RecyclerView.NO_POSITION){
                         deleteListener.onDeleteItemButtonClick(users.get(position));
+                    }
+                }
+            });
+
+            userName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(userNameListener != null && position != RecyclerView.NO_POSITION){
+                        userNameListener.OnUserNameClickListener(users.get(position));
                     }
                 }
             });
@@ -91,4 +100,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
         this.deleteListener = listener;
     }
 
+    public interface OnUserNameClickListener{
+        void OnUserNameClickListener(User user);
+    }
+
+    public void setOnUserNameClickListener(OnUserNameClickListener listener){
+        this.userNameListener = listener;
+    }
 }

@@ -5,13 +5,16 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 @Database(entities = {User.class, ExerciseDay.class, Exercise.class, Measurement.class}, version = 1, exportSchema = false)
+@TypeConverters(RoomConverters.class)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
 
     public abstract UserDAO userDao();
+    public abstract ExerciseDayDAO exerciseDayDao();
 
     public static synchronized AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {

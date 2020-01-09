@@ -1,14 +1,20 @@
 package com.example.exercisebook;
 
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
-
+@Dao
 public interface ExerciseDayDAO {
-    @Query("SELECT Id, userId FROM ExerciseDay WHERE userId=:userId")
-    List<ExerciseDay> getAllDaysByUserId(int userId);
+    @Query("SELECT Id, userId, date FROM ExerciseDay ORDER BY datetime(date)")
+    LiveData<List<ExerciseDay>> getAllDays();
+
+    @Query("SELECT Id, userId, date FROM ExerciseDay WHERE userId=:userId ORDER BY date DESC")
+    LiveData<List<ExerciseDay>> getAllDaysByUserId(Integer userId);
 
     @Insert
     void insert(ExerciseDay day);
@@ -16,9 +22,7 @@ public interface ExerciseDayDAO {
     @Delete
     void delete(ExerciseDay day);
 
-    //updating excercise day only makes sense when there is an date
-
-//    @Query("UPDATE ExerciseDay SET dateeee WHERE id = :id")
-//    void update(int id, String firstName, String lastName);
+    @Update
+    void update(ExerciseDay day);
 
 }
