@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,15 +13,27 @@
         android:id="@+id/tabs"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
-        android:minHeight="?attr/actionBarSize"
+        android:height="?attr/tabIndicatorHeight"
         app:tabMode="fixed"
         app:tabGravity="fill"
-        app:tabTextColor="#FFF"
-        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextColor="@color/colorAccent"
+        app:tabSelectedTextColor="#FFF"
+        app:tabIndicatorColor="#FFF"
         />
 
     <androidx.viewpager.widget.ViewPager
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/pager"/>
-</LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonAddDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="32dp"
+        android:src="@drawable/ic_add"
+        android:backgroundTint="@color/colorAccent"
+        />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

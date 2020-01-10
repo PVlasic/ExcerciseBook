@@ -11,8 +11,10 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -24,7 +26,12 @@ public class PickDate extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.date_picker);
-
+        //removing the title
+        setTitle("");
+        //setting an icon in the action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setIcon(R.drawable.ic_calendar);
         calendarView = findViewById(R.id.calendar);
         if(calendarView != null){
             calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
@@ -43,15 +50,18 @@ public class PickDate extends AppCompatActivity {
         saveDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(PickDate.this, DisplayTabActivity.class);
                 if (date != null) {
-                    Intent intent = new Intent(PickDate.this, DisplayTabActivity.class);
                     intent.putExtra(DisplayTabActivity.EXTRA_DATE, date.getTime());
-                    //startActivityForResult(intent, DisplayTabActivity.ADD_DAY_REQUEST);
-                    setResult(RESULT_OK, intent);
-                    finish();
+
                 } else {
-                    Toast.makeText(PickDate.this, "Pick a date before saving", Toast.LENGTH_SHORT).show();
+                    //default pick is today
+                    Date today = Calendar.getInstance().getTime();
+                    intent.putExtra(DisplayTabActivity.EXTRA_DATE, today.getTime());
                 }
+
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
     }

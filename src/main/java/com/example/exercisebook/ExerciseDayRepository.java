@@ -9,12 +9,10 @@ import java.util.List;
 
 public class ExerciseDayRepository {
     private ExerciseDayDAO exerciseDayDAO;
-    LiveData<List<ExerciseDay>> allDays;
 
     public ExerciseDayRepository(Application application){
         AppDatabase database = AppDatabase.getAppDatabase(application);
         exerciseDayDAO = database.exerciseDayDao();
-        allDays = exerciseDayDAO.getAllDays();
     }
     public void insert(ExerciseDay day){
         new InsertDayAsyncTask(exerciseDayDAO).execute(day);
@@ -28,10 +26,6 @@ public class ExerciseDayRepository {
         new DeleteDayAsyncTask(exerciseDayDAO).execute(day);
     }
 
-    //live data doesn't need async task since it's already async
-    public LiveData<List<ExerciseDay>> getAllDays(){
-        return allDays;
-    }
 
     public LiveData<List<ExerciseDay>> getAllDaysByUserId(Integer id) { return exerciseDayDAO.getAllDaysByUserId(id);}
     /**

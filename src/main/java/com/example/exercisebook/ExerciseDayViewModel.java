@@ -10,13 +10,11 @@ import java.util.List;
 
 public class ExerciseDayViewModel extends AndroidViewModel {
     private ExerciseDayRepository repository;
-    private LiveData<List<ExerciseDay>> allDays;
-    private LiveData<List<ExerciseDay>> days;
+
 
     public ExerciseDayViewModel(@NonNull Application application) {
         super(application);
         repository = new ExerciseDayRepository(application);
-        allDays = repository.getAllDays();
     }
 
     public void insert(ExerciseDay day){
@@ -31,9 +29,6 @@ public class ExerciseDayViewModel extends AndroidViewModel {
         repository.delete(day);
     }
 
-    public LiveData<List<ExerciseDay>> getAllDays() {
-        return allDays;
-    }
 
     public LiveData<List<ExerciseDay>> getAllDaysByUserId(Integer id) {
         return repository.getAllDaysByUserId(id);

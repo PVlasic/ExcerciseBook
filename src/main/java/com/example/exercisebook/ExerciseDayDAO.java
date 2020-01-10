@@ -10,8 +10,6 @@ import androidx.room.Update;
 import java.util.List;
 @Dao
 public interface ExerciseDayDAO {
-    @Query("SELECT Id, userId, date FROM ExerciseDay ORDER BY datetime(date)")
-    LiveData<List<ExerciseDay>> getAllDays();
 
     @Query("SELECT Id, userId, date FROM ExerciseDay WHERE userId=:userId ORDER BY date DESC")
     LiveData<List<ExerciseDay>> getAllDaysByUserId(Integer userId);
