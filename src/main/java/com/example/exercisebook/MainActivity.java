@@ -90,28 +90,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
 
         if(requestCode == ADD_USER_REQUEST && resultCode == RESULT_OK){
-            String firstName = data.getStringExtra(AddEditUserActivity.EXTRA_FIRST_NAME);
-            String lastName = data.getStringExtra(AddEditUserActivity.EXTRA_LAST_NAME);
+            String firstName = intent.getStringExtra(AddEditUserActivity.EXTRA_FIRST_NAME);
+            String lastName = intent.getStringExtra(AddEditUserActivity.EXTRA_LAST_NAME);
 
             User user = new User(firstName,lastName);
 
             userViewModel.insert(user);
-
             Toast.makeText(this, "User saved", Toast.LENGTH_SHORT).show();
+
         } else if(requestCode == EDIT_USER_REQUEST && resultCode == RESULT_OK) {
-            int id = data.getIntExtra(AddEditUserActivity.EXTRA_USER_ID, -1);
+            long id = intent.getLongExtra(AddEditUserActivity.EXTRA_USER_ID, -1);
             if(id == -1){
                 Toast.makeText(this, "Something went wrong. User cannot be edited.",
                         Toast.LENGTH_LONG).show();
                 return;
             }
 
-            String firstName = data.getStringExtra(AddEditUserActivity.EXTRA_FIRST_NAME);
-            String lastName = data.getStringExtra(AddEditUserActivity.EXTRA_LAST_NAME);
+            String firstName = intent.getStringExtra(AddEditUserActivity.EXTRA_FIRST_NAME);
+            String lastName = intent.getStringExtra(AddEditUserActivity.EXTRA_LAST_NAME);
 
             User user = new User(firstName,lastName);
             user.setId(id);

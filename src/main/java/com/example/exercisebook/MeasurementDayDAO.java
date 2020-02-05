@@ -13,7 +13,7 @@ import java.util.List;
 public interface MeasurementDayDAO {
 
     @Query("SELECT Id, userId, date FROM MeasurementDay WHERE userId=:userId ORDER BY date DESC")
-    LiveData<List<MeasurementDay>> getAllDaysByUserId(Integer userId);
+    LiveData<List<MeasurementDay>> getAllDaysByUserId(long userId);
 
     @Insert
     void insert(MeasurementDay day);

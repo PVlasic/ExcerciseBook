@@ -13,11 +13,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter{
     int mNumOfTabs;
-    int userId;
+    long userId;
     SparseArray<Fragment> registeredFragments = new SparseArray<>();
 
-    public ViewPagerAdapter(FragmentManager fm, int numOfTabs, int userId) {
-        super(fm, numOfTabs);
+    public ViewPagerAdapter(FragmentManager fm, int numOfTabs, long userId) {
+        super(fm);
         this.mNumOfTabs = numOfTabs;
         this.userId = userId;
     }
@@ -25,7 +25,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter{
     public Fragment getItem(int position) {
 
         Bundle bundle = new Bundle();
-        bundle.putInt("userId", userId);
+        bundle.putLong("userId", userId);
 
         switch (position) {
             case 0:
@@ -50,7 +50,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter{
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Exercises";
+                return "History";
             case 1:
                 return "Measurements";
             default:

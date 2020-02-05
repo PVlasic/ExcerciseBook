@@ -12,7 +12,10 @@ import java.util.List;
 public interface ExerciseDayDAO {
 
     @Query("SELECT Id, userId, date FROM ExerciseDay WHERE userId=:userId ORDER BY date DESC")
-    LiveData<List<ExerciseDay>> getAllDaysByUserId(Integer userId);
+    LiveData<List<ExerciseDay>> getAllDaysByUserId(long userId);
+
+    @Query("SELECT Id, userId, date FROM ExerciseDay ORDER BY Id DESC LIMIT 1")
+    LiveData<ExerciseDay> getLatestInsertedExerciseDay();
 
     @Insert
     void insert(ExerciseDay day);

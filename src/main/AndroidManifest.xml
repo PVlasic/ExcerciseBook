@@ -9,6 +9,8 @@
         android:roundIcon="@drawable/ic_gym"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".WorkoutActivity"></activity>
+        <activity android:name=".AddExercisesActivity" />
         <activity
             android:name=".DisplayTabActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -24,8 +26,9 @@
         <activity
             android:name=".AddEditUserActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".PickDate"
-            android:icon="@drawable/ic_calendar"/>
+        <activity
+            android:name=".PickDate"
+            android:icon="@drawable/ic_calendar" />
     </application>
 
 </manifest>

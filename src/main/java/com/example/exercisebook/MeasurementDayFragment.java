@@ -21,7 +21,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class MeasurementDayFragment extends Fragment {
-    private int userId;
+    private long userId;
     public static MeasurementDayViewModel dayViewModel;
     public MeasurementDayFragment() {
         // Required empty public constructor
@@ -42,7 +42,7 @@ public class MeasurementDayFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         Bundle bundle = getArguments();
-        userId = bundle.getInt("userId");
+        userId = bundle.getLong("userId");
 
 
         dayViewModel = ViewModelProviders.of(this).get(MeasurementDayViewModel.class);

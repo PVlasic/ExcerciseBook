@@ -7,10 +7,8 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "User")
 public class User {
     @PrimaryKey(autoGenerate = true)
-    private Integer Id;
-
+    private long Id;
     private String firstName;
-
     private String lastName;
 
     public User(String firstName, String lastName) {
@@ -18,17 +16,16 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Integer getId() {
+    public long getId() {
         return Id;
     }
-
-    public void setId(Integer id) {
+    public void setId(long id) {
         Id = id;
     }
+
     public void setFirstName(String name){
         this.firstName = name;
     }
-
     public String getFirstName(){
         return this.firstName;
     }
@@ -36,10 +33,10 @@ public class User {
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
-
     public String getLastName(){
         return this.lastName;
     }
+
 
     public String getFullName(){
         return firstName + " " + lastName;

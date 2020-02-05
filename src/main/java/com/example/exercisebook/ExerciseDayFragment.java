@@ -1,6 +1,7 @@
 package com.example.exercisebook;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,7 +22,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ExerciseDayFragment extends Fragment {
-    private int userId;
+    private Long userId;
     public static ExerciseDayViewModel dayViewModel;
     public ExerciseDayFragment() {
         // Required empty public constructor
@@ -42,7 +43,7 @@ public class ExerciseDayFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         Bundle bundle = getArguments();
-        userId = bundle.getInt("userId");
+        userId = bundle.getLong("userId");
 
 
         dayViewModel = ViewModelProviders.of(this).get(ExerciseDayViewModel.class);
@@ -50,6 +51,32 @@ public class ExerciseDayFragment extends Fragment {
             @Override
             public void onChanged(List<ExerciseDay> days) {
                 adapter.setDays(days);
+            }
+        });
+
+        adapter.setOnWorkoutCardClickListener(new ExerciseDayAdapter.OnWorkoutCardClickListener() {
+            @Override
+            public void OnWorkoutCardClick(ExerciseDay day) {
+                Intent intent = new Intent(getActivity(), WorkoutActivity.class);
+                intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, userId);
+                intent.putExtra(AddExercisesActivity.EXTRA_DAY_ID, day.getId());
+                startActivity(intent);
+            }
+        });
+        adapter.setOnWorkoutEditClickListener(new ExerciseDayAdapter.OnWorkoutEditClickListener() {
+            @Override
+            public void OnWorkoutEditClick(ExerciseDay day) {
+                Intent intent = new Intent(getActivity(), AddExercisesActivity.class);
+                intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, userId);
+                intent.putExtra(AddExercisesActivity.EXTRA_DAY_ID, day.getId());
+                startActivity(intent);
+            }
+        });
+
+        adapter.setOnWorkoutDeleteClickListener(new ExerciseDayAdapter.OnWorkoutDeleteClickListener() {
+            @Override
+            public void OnWorkoutDeleteClick(ExerciseDay day) {
+                dayViewModel.delete(day);
             }
         });
 

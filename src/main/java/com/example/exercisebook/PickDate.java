@@ -20,8 +20,13 @@ import java.util.GregorianCalendar;
 
 
 public class PickDate extends AppCompatActivity {
+    public static final String EXTRA_DATE = "com.example.exercisebook.EXTRA_DAY_TYPE";
     CalendarView calendarView;
     Date date;
+    String dayType;
+    long userId;
+    long dayId;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,24 +49,31 @@ public class PickDate extends AppCompatActivity {
             });
         }
 
-        getIntent();
+        Intent intent = getIntent();
+        userId = intent.getLongExtra(AddEditUserActivity.EXTRA_USER_ID, -1);
+        final String dayType = intent.getStringExtra(DisplayTabActivity.EXTRA_DAY_TYPE);
+
         Button saveDate = findViewById(R.id.saveDate);
 
         saveDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PickDate.this, DisplayTabActivity.class);
-                if (date != null) {
-                    intent.putExtra(DisplayTabActivity.EXTRA_DATE, date.getTime());
 
-                } else {
-                    //default pick is today
-                    Date today = Calendar.getInstance().getTime();
-                    intent.putExtra(DisplayTabActivity.EXTRA_DATE, today.getTime());
+                if (date == null) {
+                    //if nothing is selected date is set on today's date
+                    date = Calendar.getInstance().getTime();
                 }
 
-                setResult(RESULT_OK, intent);
-                finish();
+                if(dayType.equals("addExerciseDay")){
+                    Intent intent = new Intent(PickDate.this, AddExercisesActivity.class);
+                    intent.putExtra(EXTRA_DATE, date.getTime());
+                    intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, userId);
+                    startActivity(intent);
+
+                } else if(dayType.equals("addMeasurementDay")){
+                    MeasurementDay day = new MeasurementDay(userId, date);
+                    MeasurementDayFragment.dayViewModel.insert(day);
+                }
             }
         });
     }

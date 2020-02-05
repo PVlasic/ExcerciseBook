@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 @Database(entities = {User.class, ExerciseDay.class, MeasurementDay.class, Exercise.class, Measurement.class}, version = 1, exportSchema = false)
-@TypeConverters(RoomConverters.class)
+@TypeConverters({DateRoomConverter.class, SparseIntArrayConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
@@ -16,6 +16,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDAO userDao();
     public abstract ExerciseDayDAO exerciseDayDao();
     public abstract MeasurementDayDAO measurementDayDao();
+    public abstract ExerciseDAO exerciseDAO();
 
     public static synchronized AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {

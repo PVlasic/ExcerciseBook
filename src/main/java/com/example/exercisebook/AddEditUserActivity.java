@@ -61,17 +61,17 @@ public class AddEditUserActivity extends AppCompatActivity {
                 }
 
 
-                Intent data = new Intent();
-                data.putExtra(EXTRA_FIRST_NAME, userFirstName);
-                data.putExtra(EXTRA_LAST_NAME, userLastName);
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_FIRST_NAME, userFirstName);
+                intent.putExtra(EXTRA_LAST_NAME, userLastName);
 
-                int id = getIntent().getIntExtra(EXTRA_USER_ID, -1);
+                long id = getIntent().getLongExtra(EXTRA_USER_ID, -1);
 
                 if(id != -1){
-                    data.putExtra(EXTRA_USER_ID, id);
+                    intent.putExtra(EXTRA_USER_ID, id);
                 }
 
-                setResult(RESULT_OK, data);
+                setResult(RESULT_OK, intent);
                 finish();
 
             }

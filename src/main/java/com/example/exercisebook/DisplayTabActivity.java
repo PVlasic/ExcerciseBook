@@ -25,11 +25,10 @@ public class DisplayTabActivity extends AppCompatActivity {
     private ViewPagerAdapter pagerAdapter;
     private TabLayout tabLayout;
 
-    int userId;
+    long userId;
 
     public Fragment currentFragment;
-    public static final int ADD_EXCERCISE_DAY_REQUEST = 1;
-    public static final int ADD_MEASUREMENT_DAY_REQUEST = 2;
+    public static final String EXTRA_DAY_TYPE = "com.example.exercisebook.EXTRA_DAY_TYPE";
     public static final int NUMBER_OF_TABS = 2;
     public static final String EXTRA_DATE =
             "com.example.exercisebook.EXTRA_DATE";
@@ -41,7 +40,7 @@ public class DisplayTabActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if(intent.hasExtra(AddEditUserActivity.EXTRA_USER_ID)){
-            userId = intent.getIntExtra(AddEditUserActivity.EXTRA_USER_ID,-1);
+            userId = intent.getLongExtra(AddEditUserActivity.EXTRA_USER_ID,-1);
 
             if (userId != -1) {
 
@@ -85,38 +84,17 @@ public class DisplayTabActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(DisplayTabActivity.this, PickDate.class);
+                intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, userId);
 
                 if (currentFragment instanceof ExerciseDayFragment) {
-                    startActivityForResult(intent, ADD_EXCERCISE_DAY_REQUEST);
+                    intent.putExtra(EXTRA_DAY_TYPE,"addExerciseDay");
+                    startActivity(intent);
                 } else if (currentFragment instanceof MeasurementDayFragment) {
-                    startActivityForResult(intent, ADD_MEASUREMENT_DAY_REQUEST);
+                    intent.putExtra(EXTRA_DAY_TYPE,"addMeasurementDay");
+                    startActivity(intent);
                 }
             }
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-
-        if (requestCode == ADD_EXCERCISE_DAY_REQUEST && resultCode == RESULT_OK) {
-            Long dateLong = intent.getLongExtra(EXTRA_DATE, -1);
-            if (dateLong != -1) {
-                Date date = new Date();
-                date.setTime(dateLong);
-                //new exercise day is created
-                ExerciseDay day = new ExerciseDay(userId, date);
-                ExerciseDayFragment.dayViewModel.insert(day);
-            }
-        } else if (requestCode == ADD_MEASUREMENT_DAY_REQUEST && resultCode == RESULT_OK) {
-            Long dateLong = intent.getLongExtra(EXTRA_DATE, -1);
-            if (dateLong != -1) {
-                Date date = new Date();
-                date.setTime(dateLong);
-                //new measurement day is created
-                MeasurementDay day = new MeasurementDay(userId, date);
-                MeasurementDayFragment.dayViewModel.insert(day);
-            }
-        }
-    }
 }

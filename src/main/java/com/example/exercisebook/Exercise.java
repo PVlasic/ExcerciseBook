@@ -1,43 +1,57 @@
 package com.example.exercisebook;
 
+import android.util.SparseArray;
+import android.util.SparseIntArray;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import java.util.HashMap;
 
-@Entity(tableName = "Exercise")
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "Exercise",
+        foreignKeys = @ForeignKey(
+                entity = ExerciseDay.class,
+                parentColumns = "Id",
+                childColumns = "dayId",
+                onDelete = CASCADE
+        ),
+        indices = @Index("dayId"))
 public class Exercise {
     @PrimaryKey(autoGenerate = true)
-    Integer Id;
+    long Id;
+    long dayId;
 
-    Integer dayId;
-
-    String excerciseName;
+    String name;
     Integer numberOfSets;
     Double weight;
-    //public HashMap<Integer, Integer> repetitionsBySet;
 
+    @TypeConverters(SparseIntArrayConverter.class)
+    public SparseIntArray repetitionsBySet = new SparseIntArray();
 
-
-    public Integer getId(Integer id){
+    public long getId(){
         return this.Id;
     }
 
-    public void setParent(Integer dayId){
+    public void setDayId(long dayId){
         this.dayId = dayId;
     }
 
-    public Integer getParent(){
+    public long getDayId(){
         return this.dayId;
     }
 
     public void setName(String name){
-        this.excerciseName = name;
+        this.name = name;
     }
 
     public String getName(){
-        return this.excerciseName;
+        return this.name;
     }
 
     public void setNumberOfSets(Integer number){

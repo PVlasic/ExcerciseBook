@@ -30,7 +30,11 @@ public class ExerciseDayViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<List<ExerciseDay>> getAllDaysByUserId(Integer id) {
+    public LiveData<List<ExerciseDay>> getAllDaysByUserId(long id) {
         return repository.getAllDaysByUserId(id);
+    }
+
+    public LiveData<ExerciseDay> getLatestInsertedExerciseDay(){
+        return repository.getLatestInsertedExerciseDay();
     }
 }

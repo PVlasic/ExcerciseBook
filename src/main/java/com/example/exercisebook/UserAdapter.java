@@ -1,5 +1,6 @@
 package com.example.exercisebook;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
         public UserHolder(@NonNull View itemView) {
             super(itemView);
             userName = itemView.findViewById(R.id.userName);
-            //View relativeLayoutView = ((ViewGroup)itemView).getChildAt(0);
+
             Button editButton = itemView.findViewById(R.id.editUserButton);
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override

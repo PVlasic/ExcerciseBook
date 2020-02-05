@@ -1,35 +1,46 @@
 package com.example.exercisebook;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import java.util.Date;
 
-@Entity(tableName = "MeasurementDay")
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "MeasurementDay",
+        foreignKeys = @ForeignKey(
+                entity = User.class,
+                parentColumns = "Id",
+                childColumns = "userId",
+                onDelete = CASCADE
+        ),
+        indices = @Index("userId"))
 public class MeasurementDay {
     @PrimaryKey(autoGenerate = true)
-    private Integer Id;
+    private long Id;
     //lookup on user so we know whose measurement this is
-    private Integer userId;
-    @TypeConverters(RoomConverters.class)
+    private long userId;
+    @TypeConverters(DateRoomConverter.class)
     private Date date;
 
-    public MeasurementDay(Integer userId, Date date) {
+    public MeasurementDay(long userId, Date date) {
         this.userId = userId;
         this.date = date;
     }
 
-    public Integer getId() {
+    public long getId() {
         return Id;
     }
-    public void setId(Integer id) {
+    public void setId(long id) {
         Id = id;
     }
-    public Integer getUserId() {
+    public long getUserId() {
         return userId;
     }
-    public void setUserId(Integer userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
