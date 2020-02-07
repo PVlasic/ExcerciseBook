@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,16 +58,16 @@ public class ExerciseDayFragment extends Fragment {
             public void OnWorkoutCardClick(ExerciseDay day) {
                 Intent intent = new Intent(getActivity(), WorkoutActivity.class);
                 intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, userId);
-                intent.putExtra(AddExercisesActivity.EXTRA_DAY_ID, day.getId());
+                intent.putExtra(AddEditExercisesActivity.EXTRA_DAY_ID, day.getId());
                 startActivity(intent);
             }
         });
         adapter.setOnWorkoutEditClickListener(new ExerciseDayAdapter.OnWorkoutEditClickListener() {
             @Override
             public void OnWorkoutEditClick(ExerciseDay day) {
-                Intent intent = new Intent(getActivity(), AddExercisesActivity.class);
+                Intent intent = new Intent(getActivity(), AddEditExercisesActivity.class);
                 intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, userId);
-                intent.putExtra(AddExercisesActivity.EXTRA_DAY_ID, day.getId());
+                intent.putExtra(AddEditExercisesActivity.EXTRA_DAY_ID, day.getId());
                 startActivity(intent);
             }
         });

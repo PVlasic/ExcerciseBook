@@ -9,8 +9,9 @@
         android:roundIcon="@drawable/ic_gym"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WorkoutActivity"></activity>
-        <activity android:name=".AddExercisesActivity" />
+        <activity android:name=".AddEditMeasurementsActivity"></activity>
+        <activity android:name=".WorkoutActivity" />
+        <activity android:name=".AddEditExercisesActivity" />
         <activity
             android:name=".DisplayTabActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

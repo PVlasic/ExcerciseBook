@@ -27,7 +27,8 @@ public class MeasurementDayRepository {
     }
 
 
-    public LiveData<List<MeasurementDay>> getAllDaysByUserId(long id) { return measurementDayDAO.getAllDaysByUserId(id);}
+    public LiveData<List<MeasurementDay>> getAllDaysByUserId(long userId) { return measurementDayDAO.getAllDaysByUserId(userId);}
+    public LiveData<MeasurementDay> getDayById(long id){return measurementDayDAO.getDayById(id);}
     /**
      We want to do our database operations(insert, update, delete)
      on a different thread (in the background) so we are using async task.

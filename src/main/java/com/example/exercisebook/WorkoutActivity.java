@@ -1,9 +1,7 @@
 package com.example.exercisebook;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,8 +40,15 @@ public class WorkoutActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         userId = intent.getLongExtra(AddEditUserActivity.EXTRA_USER_ID, -1);
-        dayId = intent.getLongExtra(AddExercisesActivity.EXTRA_DAY_ID, -1);
+        dayId = intent.getLongExtra(AddEditExercisesActivity.EXTRA_DAY_ID, -1);
 
+        exerciseAdapter.setOnDeleteButtonItemClickListener(new ExerciseAdapter.OnDeleteItemButtonClickListener() {
+            @Override
+            public void onDeleteItemButtonClick(Exercise exercise) {
+                exerciseViewModel.delete(exercise);
+                Toast.makeText(WorkoutActivity.this, "Exercise deleted.", Toast.LENGTH_LONG).show();
+            }
+        });
 
         if(dayId == -1){
             Log.d("workTest", "dayId EMPTY");
@@ -102,13 +107,14 @@ public class WorkoutActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(new LinearLayoutManager(WorkoutActivity.this));
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(exerciseAdapter);
+
             }
         };
     }
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        intent.putExtra(AddExercisesActivity.EXTRA_DAY_ID, -1);
+        intent.putExtra(AddEditExercisesActivity.EXTRA_DAY_ID, -1);
         setResult(RESULT_OK, intent);
 
         super.onBackPressed();

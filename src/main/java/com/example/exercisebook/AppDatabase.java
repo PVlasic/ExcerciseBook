@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-@Database(entities = {User.class, ExerciseDay.class, MeasurementDay.class, Exercise.class, Measurement.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, ExerciseDay.class, Exercise.class, MeasurementDay.class}, version = 1, exportSchema = false)
 @TypeConverters({DateRoomConverter.class, SparseIntArrayConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 

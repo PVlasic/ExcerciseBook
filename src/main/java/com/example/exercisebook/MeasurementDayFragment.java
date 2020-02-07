@@ -1,6 +1,7 @@
 package com.example.exercisebook;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -50,6 +51,22 @@ public class MeasurementDayFragment extends Fragment {
             @Override
             public void onChanged(List<MeasurementDay> days) {
                 adapter.setDays(days);
+            }
+        });
+        adapter.setOnMeasurementCardClickListener(new MeasurementDayAdapter.OnMeasurementCardClickListener() {
+            @Override
+            public void OnMeasurementCardClick(MeasurementDay day) {
+                Intent intent = new Intent(getActivity(), AddEditMeasurementsActivity.class);
+                intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, userId);
+                intent.putExtra(AddEditMeasurementsActivity.EXTRA_MEASUREMENT_DAY_ID, day.getId());
+                startActivity(intent);
+            }
+        });
+
+        adapter.setOnDeleteButtonClickListener(new MeasurementDayAdapter.OnDeleteButtonClickListener() {
+            @Override
+            public void onDeleteButtonClick(MeasurementDay day) {
+                dayViewModel.delete(day);
             }
         });
 

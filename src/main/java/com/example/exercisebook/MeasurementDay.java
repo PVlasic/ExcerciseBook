@@ -26,6 +26,16 @@ public class MeasurementDay {
     @TypeConverters(DateRoomConverter.class)
     private Date date;
 
+    private Double height;
+    private Double weight;
+    private Double shoulderWidth;
+    private Double chestWidth;
+    private Double waistWidth;
+    private Double hipsWidth;
+    private Double thighsWidth;
+    private Double upperArmWidth;
+
+
     public MeasurementDay(long userId, Date date) {
         this.userId = userId;
         this.date = date;
@@ -37,6 +47,7 @@ public class MeasurementDay {
     public void setId(long id) {
         Id = id;
     }
+
     public long getUserId() {
         return userId;
     }
@@ -49,6 +60,62 @@ public class MeasurementDay {
     }
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Double getHeight() {
+        return this.height;
+    }
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
+    public Double getWeight() {
+        return this.weight;
+    }
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public Double getShoulderWidth() {
+        return this.shoulderWidth;
+    }
+    public void setShoulderWidth(Double shoulderWidth) {
+        this.shoulderWidth = shoulderWidth;
+    }
+
+    public Double getChestWidth() {
+        return this.chestWidth;
+    }
+    public void setChestWidth(Double chestWidth) {
+        this.chestWidth = chestWidth;
+    }
+
+    public Double getWaistWidth() {
+        return this.waistWidth;
+    }
+    public void setWaistWidth(Double waistWidth) {
+        this.waistWidth = waistWidth;
+    }
+
+    public Double getHipsWidth() {
+        return this.hipsWidth;
+    }
+    public void setHipsWidth(Double hipsWidth) {
+        this.hipsWidth = hipsWidth;
+    }
+
+    public Double getThighsWidth() {
+        return this.thighsWidth;
+    }
+    public void setThighsWidth(Double thighsWidth) {
+        this.thighsWidth = thighsWidth;
+    }
+
+    public Double getUpperArmWidth() {
+        return this.upperArmWidth;
+    }
+    public void setUpperArmWidth(Double upperArmWidth) {
+        this.upperArmWidth = upperArmWidth;
     }
 
 }

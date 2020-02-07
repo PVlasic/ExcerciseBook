@@ -2,12 +2,9 @@ package com.example.exercisebook;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -65,14 +62,16 @@ public class PickDate extends AppCompatActivity {
                 }
 
                 if(dayType.equals("addExerciseDay")){
-                    Intent intent = new Intent(PickDate.this, AddExercisesActivity.class);
+                    Intent intent = new Intent(PickDate.this, AddEditExercisesActivity.class);
                     intent.putExtra(EXTRA_DATE, date.getTime());
                     intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, userId);
                     startActivity(intent);
 
                 } else if(dayType.equals("addMeasurementDay")){
-                    MeasurementDay day = new MeasurementDay(userId, date);
-                    MeasurementDayFragment.dayViewModel.insert(day);
+                    Intent intent = new Intent(PickDate.this, AddEditMeasurementsActivity.class);
+                    intent.putExtra(EXTRA_DATE, date.getTime());
+                    intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, userId);
+                    startActivity(intent);
                 }
             }
         });

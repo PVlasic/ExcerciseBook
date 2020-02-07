@@ -30,7 +30,11 @@ public class MeasurementDayViewModel extends AndroidViewModel {
         repository.delete(day);
     }
 
-    public LiveData<List<MeasurementDay>> getAllDaysByUserId(long id) {
-        return repository.getAllDaysByUserId(id);
+    public LiveData<List<MeasurementDay>> getAllDaysByUserId(long userId) {
+        return repository.getAllDaysByUserId(userId);
+    }
+
+    public LiveData<MeasurementDay> getDayById(long id){
+        return repository.getDayById(id);
     }
 }

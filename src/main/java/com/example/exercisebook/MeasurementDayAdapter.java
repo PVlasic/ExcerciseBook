@@ -4,9 +4,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DateFormat;
@@ -16,6 +18,8 @@ import java.util.List;
 
 public class MeasurementDayAdapter extends RecyclerView.Adapter<MeasurementDayAdapter.DayHolder> {
     private List<MeasurementDay> days = new ArrayList<MeasurementDay>();
+    private  OnMeasurementCardClickListener measurementCardListener;
+    private OnDeleteButtonClickListener deleteButtonListener;
     @NonNull
     @Override
     public MeasurementDayAdapter.DayHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -47,6 +51,45 @@ public class MeasurementDayAdapter extends RecyclerView.Adapter<MeasurementDayAd
         public DayHolder(@NonNull View itemView) {
             super(itemView);
             dateContainer = itemView.findViewById(R.id.dateContainer);
+
+            CardView cardView = itemView.findViewById(R.id.measurementDayCard);
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (measurementCardListener != null && position != RecyclerView.NO_POSITION) {
+                        measurementCardListener.OnMeasurementCardClick(days.get(position));
+                    }
+                }
+            });
+
+            Button deleteButton = itemView.findViewById(R.id.deleteMeasurementsButton);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(deleteButtonListener!= null && position != RecyclerView.NO_POSITION){
+                        deleteButtonListener.onDeleteButtonClick(days.get(position));
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnMeasurementCardClickListener{
+        void OnMeasurementCardClick(MeasurementDay day);
+    }
+
+    public void setOnMeasurementCardClickListener(MeasurementDayAdapter.OnMeasurementCardClickListener listener){
+        this.measurementCardListener = listener;
+    }
+
+    public interface OnDeleteButtonClickListener{
+        void onDeleteButtonClick(MeasurementDay day);
+    }
+
+    public void setOnDeleteButtonClickListener(MeasurementDayAdapter.OnDeleteButtonClickListener listener){
+        this.deleteButtonListener = listener;
     }
 }

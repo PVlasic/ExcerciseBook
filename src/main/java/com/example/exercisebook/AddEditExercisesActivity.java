@@ -1,12 +1,9 @@
 package com.example.exercisebook;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,11 +17,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AddExercisesActivity extends AppCompatActivity {
+public class AddEditExercisesActivity extends AppCompatActivity {
     public static final String EXTRA_DAY_ID = "com.example.exercisebook.EXTRA_DAY_ID";
 
     private ExerciseViewModel exerciseViewModel;
-    //private ExerciseDayViewModel dayViewModel;
 
     private long dayId;
     private long userId;
@@ -38,7 +34,7 @@ public class AddExercisesActivity extends AppCompatActivity {
     private String[] allExercises = new String[]{"Squat", "Bench Press", "Dumbell Row", "Military Press",
             "Tricep Pushdown", "Lying Tricep Press", "Side Lateral Rises", "Preaching Curls", "Seated Dumbell Curls",
             "One Arm Dumbell Row", "Lat Pushdowns", "Shrugs", "Chinups", "Leg Press", "Leg Extension", "Leg Curls",
-            "Calves Raises","Ab Crunches Machine", "Crunches", "Dips", "Butterfly", "EZ Bar Curls", "Hammer Curls", "Deadlift"};
+            "Calves Raises","Ab Crunches", "Crunches", "Dips", "Butterfly", "EZ Bar Curls", "Hammer Curls", "Deadlift"};
 
 
     @Override
@@ -47,7 +43,7 @@ public class AddExercisesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_exercise_layout);
 
-        exerciseViewModel = ViewModelProviders.of(AddExercisesActivity.this).get(ExerciseViewModel.class);
+        exerciseViewModel = ViewModelProviders.of(AddEditExercisesActivity.this).get(ExerciseViewModel.class);
 
         Intent intent = getIntent();
         long dateLong = intent.getLongExtra(PickDate.EXTRA_DATE, -1);
@@ -56,20 +52,17 @@ public class AddExercisesActivity extends AppCompatActivity {
         }
 
         userId = intent.getLongExtra(AddEditUserActivity.EXTRA_USER_ID, -1);
-        dayId = intent.getLongExtra(AddExercisesActivity.EXTRA_DAY_ID, -1);
+        dayId = intent.getLongExtra(AddEditExercisesActivity.EXTRA_DAY_ID, -1);
 
 
         NumberPicker numOfSetsPicker = findViewById(R.id.setPicker);
         numOfSetsPicker.setMinValue(1);
-        numOfSetsPicker.setMaxValue(10);
+        numOfSetsPicker.setMaxValue(8);
 
         setUpNamePicker();
 
         Button addExerciseBtn = findViewById(R.id.addExercise);
         Button finishBtn = findViewById(R.id.saveExercises);
-
-
-
 
 
         addExerciseBtn.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +71,7 @@ public class AddExercisesActivity extends AppCompatActivity {
                 EditText weightPicker = findViewById(R.id.weightPicker);
                 if(weightPicker.getText().toString().trim().length() > 0){
                     if(pickedExerciseNames.size() >= 10){
-                        Toast.makeText(AddExercisesActivity.this, "Exercise not added. Cannot add more then 10 exercises per day.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddEditExercisesActivity.this, "Exercise not added. Cannot add more then 10 exercises per day.", Toast.LENGTH_LONG).show();
                     } else {
                         Exercise exercise = new Exercise();
                         NumberPicker namePicker = findViewById(R.id.exerciseNamePicker);
@@ -96,11 +89,11 @@ public class AddExercisesActivity extends AppCompatActivity {
                         weightPicker.setText("");
                         setUpNamePicker();
 
-                        Toast.makeText(AddExercisesActivity.this, "Exercise added", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AddEditExercisesActivity.this, "Exercise added", Toast.LENGTH_LONG).show();
                     }
 
                 }else{
-                    Toast.makeText(AddExercisesActivity.this, "Weight is empty. Exercise not added", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddEditExercisesActivity.this, "Weight is empty. Exercise not added", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -109,14 +102,14 @@ public class AddExercisesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(pickedExerciseNames.isEmpty()){
-                    Toast.makeText(AddExercisesActivity.this, "You need to pick at least one exercise", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddEditExercisesActivity.this, "You need to pick at least one exercise", Toast.LENGTH_LONG).show();
                 }else{
                     if(dayId == -1){
                         if(userId != -1 && date != null){
                             ExerciseDay day = new ExerciseDay(userId, date);
                             Log.d("myTest", "dayId EMPTY");
                             exerciseViewModel.insertAllWithParent(day, exercisesForInsert);
-                            Intent intent = new Intent(AddExercisesActivity.this, WorkoutActivity.class);
+                            Intent intent = new Intent(AddEditExercisesActivity.this, WorkoutActivity.class);
                             intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, userId);
                             startActivity(intent);
 
@@ -125,7 +118,7 @@ public class AddExercisesActivity extends AppCompatActivity {
                         Log.d("myTest", "dayId RECEIVED: " + dayId);
                         insertExercises(dayId);
 
-                        Intent intent = new Intent(AddExercisesActivity.this, WorkoutActivity.class);
+                        Intent intent = new Intent(AddEditExercisesActivity.this, WorkoutActivity.class);
                         intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, userId);
                         intent.putExtra(EXTRA_DAY_ID, dayId);
                         startActivity(intent);

@@ -18,6 +18,7 @@ import java.util.List;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseHolder>{
     private List<Exercise> exercises = new ArrayList<>();
+    private OnDeleteItemButtonClickListener deleteListener;
     @NonNull
     @Override
     public ExerciseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -101,6 +102,24 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
             weightTextView = itemView.findViewById(R.id.weight);
             setsContainer = itemView.findViewById(R.id.exerciseSetContainer);
 
+            Button deleteButton = itemView.findViewById(R.id.deleteExerciseButton);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                int position = getAdapterPosition();
+                if(deleteListener!= null && position != RecyclerView.NO_POSITION){
+                    deleteListener.onDeleteItemButtonClick(exercises.get(position));
+                }
+                }
+            });
         }
+    }
+
+    public interface OnDeleteItemButtonClickListener {
+        void onDeleteItemButtonClick(Exercise exercise);
+    }
+
+    public void setOnDeleteButtonItemClickListener(OnDeleteItemButtonClickListener listener) {
+        this.deleteListener = listener;
     }
 }

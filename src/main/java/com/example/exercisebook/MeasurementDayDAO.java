@@ -15,6 +15,10 @@ public interface MeasurementDayDAO {
     @Query("SELECT Id, userId, date FROM MeasurementDay WHERE userId=:userId ORDER BY date DESC")
     LiveData<List<MeasurementDay>> getAllDaysByUserId(long userId);
 
+    @Query("SELECT Id, userId, date, height, weight, shoulderWidth, chestWidth, waistWidth, hipsWidth, thighsWidth, upperArmWidth  " +
+            "FROM MeasurementDay WHERE Id=:Id")
+    LiveData<MeasurementDay> getDayById(long Id);
+
     @Insert
     void insert(MeasurementDay day);
 
@@ -25,3 +29,14 @@ public interface MeasurementDayDAO {
     void update(MeasurementDay day);
 
 }
+
+/**
+ *     private Double height;
+ *     private Double weight;
+ *     private Double shoulderWidth;
+ *     private Double chestWidth;
+ *     private Double waistWidth;
+ *     private Double hipsWidth;
+ *     private Double thighsWidth;
+ *     private Double upperArmWidth;
+ * **/
