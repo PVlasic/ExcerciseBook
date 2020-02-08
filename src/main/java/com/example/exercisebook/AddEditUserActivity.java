@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class AddEditUserActivity extends AppCompatActivity {
     private EditText editTextFirstName;
     private EditText editTextLastName;
+    private long userId;
 
     public static final String EXTRA_USER_ID =
             "com.example.exercisebook.EXTRA_FIRST_ID";
@@ -31,6 +32,7 @@ public class AddEditUserActivity extends AppCompatActivity {
         editTextLastName = findViewById(R.id.editLastName);
 
         Intent intent = getIntent();
+        userId = intent.getLongExtra(EXTRA_USER_ID, -1);
 
         if(intent.hasExtra(EXTRA_USER_ID)){
             setTitle("Edit User");
@@ -65,10 +67,9 @@ public class AddEditUserActivity extends AppCompatActivity {
                 intent.putExtra(EXTRA_FIRST_NAME, userFirstName);
                 intent.putExtra(EXTRA_LAST_NAME, userLastName);
 
-                long id = getIntent().getLongExtra(EXTRA_USER_ID, -1);
 
-                if(id != -1){
-                    intent.putExtra(EXTRA_USER_ID, id);
+                if(userId != -1){
+                    intent.putExtra(EXTRA_USER_ID, userId);
                 }
 
                 setResult(RESULT_OK, intent);
@@ -80,14 +81,10 @@ public class AddEditUserActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(AddEditUserActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 }

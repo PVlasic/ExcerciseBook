@@ -29,14 +29,3 @@ public interface MeasurementDayDAO {
     void update(MeasurementDay day);
 
 }
-
-/**
- *     private Double height;
- *     private Double weight;
- *     private Double shoulderWidth;
- *     private Double chestWidth;
- *     private Double waistWidth;
- *     private Double hipsWidth;
- *     private Double thighsWidth;
- *     private Double upperArmWidth;
- * **/

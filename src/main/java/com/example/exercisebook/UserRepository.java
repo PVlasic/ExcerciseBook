@@ -32,13 +32,13 @@ public class UserRepository {
 
     //live data doesn't need async task since it's already async
     public LiveData<List<User>> getAllUsers(){
-        return allUsers;
+        return userDAO.getAllUsers();
     }
 
     /**
      We want to do our database operations(insert, update, delete)
      on a different thread (in the background) so we are using async task.
-     Room does not let doing these operations on the main thread.
+     Room does not let us doing these operations on the main thread.
     **/
     private static class InsertUserAsyncTask extends AsyncTask<User, Void, Void>{
         private UserDAO userDAO;

@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class MeasurementDayFragment extends Fragment {
     private long userId;
-    public static MeasurementDayViewModel dayViewModel;
+    private static MeasurementDayViewModel dayViewModel;
     public MeasurementDayFragment() {
         // Required empty public constructor
     }

@@ -11,15 +11,13 @@ import java.util.List;
 
 @Dao
 public interface UserDAO {
-    //we use live data because we want to refelect all of the changes on the database right away
+    //we use live data because we want to reflect all of the changes on the database right away
     @Query("SELECT Id, firstName, lastName FROM User ORDER BY firstName")
     LiveData<List<User>> getAllUsers();
 
     @Insert
     void insert(User user);
 
-    //need to write custom delete since I will need to delete all objects related to the
-    //User when I delete the user
     @Delete
     void delete(User user);
 

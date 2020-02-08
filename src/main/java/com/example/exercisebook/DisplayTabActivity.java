@@ -1,15 +1,10 @@
 package com.example.exercisebook;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +12,7 @@ import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.Date;
+
 
 public class DisplayTabActivity extends AppCompatActivity {
 
@@ -25,13 +20,12 @@ public class DisplayTabActivity extends AppCompatActivity {
     private ViewPagerAdapter pagerAdapter;
     private TabLayout tabLayout;
 
-    long userId;
+    private long userId;
 
     public Fragment currentFragment;
     public static final String EXTRA_DAY_TYPE = "com.example.exercisebook.EXTRA_DAY_TYPE";
     public static final int NUMBER_OF_TABS = 2;
-    public static final String EXTRA_DATE =
-            "com.example.exercisebook.EXTRA_DATE";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

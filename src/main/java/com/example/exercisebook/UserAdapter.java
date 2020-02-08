@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
     private List<User> users = new ArrayList<>();
     private OnItemButtonClickListener listener;
     private OnDeleteItemButtonClickListener deleteListener;
-    private OnUserNameClickListener userNameListener;
+    private OnUserCardClickListener userCardListener;
     @NonNull
     @Override
     public UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -73,12 +74,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
                 }
             });
 
-            userName.setOnClickListener(new View.OnClickListener() {
+            CardView userCard = itemView.findViewById(R.id.userCard);
+            userCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if(userNameListener != null && position != RecyclerView.NO_POSITION){
-                        userNameListener.OnUserNameClickListener(users.get(position));
+                    if(userCardListener != null && position != RecyclerView.NO_POSITION){
+                        userCardListener.OnUserCardClickListener(users.get(position));
                     }
                 }
             });
@@ -101,11 +103,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
         this.deleteListener = listener;
     }
 
-    public interface OnUserNameClickListener{
-        void OnUserNameClickListener(User user);
+    public interface OnUserCardClickListener{
+        void OnUserCardClickListener(User user);
     }
 
-    public void setOnUserNameClickListener(OnUserNameClickListener listener){
-        this.userNameListener = listener;
+    public void setOnUserCardClickListener(OnUserCardClickListener listener){
+        this.userCardListener = listener;
     }
 }

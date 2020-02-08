@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int ADD_USER_REQUEST = 1;
     public static final int EDIT_USER_REQUEST = 2;
 
-
     private UserViewModel userViewModel;
 
     @Override
@@ -29,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FloatingActionButton buttonAddUser = findViewById(R.id.buttonAddUser);
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewUsers);
         final UserAdapter adapter = new UserAdapter();
+
+        FloatingActionButton buttonAddUser = findViewById(R.id.buttonAddUser);
 
         //setting listener for button for adding a user
         buttonAddUser.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewUsers);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
@@ -73,15 +72,14 @@ public class MainActivity extends AppCompatActivity {
         adapter.setOnDeleteButtonItemClickListener(new UserAdapter.OnDeleteItemButtonClickListener() {
             @Override
             public void onDeleteItemButtonClick(User user) {
-                //TODO: add other view models and methods which will delete all user related objects
                 userViewModel.delete(user);
                 Toast.makeText(MainActivity.this, "User deleted.", Toast.LENGTH_LONG).show();
             }
         });
 
-        adapter.setOnUserNameClickListener(new UserAdapter.OnUserNameClickListener() {
+        adapter.setOnUserCardClickListener(new UserAdapter.OnUserCardClickListener() {
             @Override
-            public void OnUserNameClickListener(User user) {
+            public void OnUserCardClickListener(User user) {
                 Intent intent = new Intent(MainActivity.this, DisplayTabActivity.class);
                 intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, user.getId());
                 startActivity(intent);

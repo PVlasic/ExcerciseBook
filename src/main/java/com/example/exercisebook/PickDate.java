@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +21,8 @@ public class PickDate extends AppCompatActivity {
     public static final String EXTRA_DATE = "com.example.exercisebook.EXTRA_DAY_TYPE";
     CalendarView calendarView;
     Date date;
-    String dayType;
     long userId;
-    long dayId;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,11 +34,13 @@ public class PickDate extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setIcon(R.drawable.ic_calendar);
+
+
         calendarView = findViewById(R.id.calendar);
         if(calendarView != null){
             calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
                 @Override
-                public void onSelectedDayChange(CalendarView calendarView, int year, int month,
+                public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month,
                                                 int day) {
                     Toast.makeText(getApplicationContext(),day+ "/"+month+"/"+year,Toast.LENGTH_SHORT).show();
                     date = new GregorianCalendar(year, month, day).getTime();
