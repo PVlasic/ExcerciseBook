@@ -22,7 +22,7 @@ public abstract class ExerciseDAO {
     abstract LiveData<List<Exercise>> getAllExercisesById(long dayId);
 
     @Insert
-    abstract void insert(Exercise... exercises);
+    abstract void insert(List<Exercise> exercises);
 
     @Delete
     abstract void delete(Exercise exercise);
@@ -34,25 +34,21 @@ public abstract class ExerciseDAO {
     abstract LiveData<Integer> getExerciseCount();
 
     @Insert(onConflict = REPLACE)
-    abstract long insert(ExerciseDay company);
+    abstract long insert(ExerciseDay day);
 
     @Transaction
     public void InsertAllWithParent(ExerciseDay day, List<Exercise> exercises) {
 
-        // Save rowId of inserted CompanyEntity as companyId
         final long dayId = insert(day);
 
-        Log.d("myTest", "new dayId DAO class: " + dayId);
         //inserted exercises are not for insert anymore
         // Set companyId for all related employeeEntities
         for (Exercise exercise : exercises) {
             exercise.setDayId(dayId);
             Log.d("myTest", "exercise name DAO " + exercise.getName() + " dayId: " + exercise.getDayId());
         }
-        Exercise[] exercisesFormatted = new Exercise[exercises.size()];
-        exercisesFormatted = exercises.toArray(exercisesFormatted);
 
-        insert(exercisesFormatted);
+        insert(exercises);
     }
 
 

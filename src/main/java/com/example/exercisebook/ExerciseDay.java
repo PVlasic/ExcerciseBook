@@ -16,7 +16,7 @@ import static androidx.room.ForeignKey.CASCADE;
                 entity = User.class,
                 parentColumns = "Id",
                 childColumns = "userId",
-                onDelete = CASCADE
+                onDelete = CASCADE //master-detail relationship
         ),
         indices = @Index("userId"))
 public class ExerciseDay {

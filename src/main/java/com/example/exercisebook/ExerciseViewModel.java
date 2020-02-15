@@ -19,7 +19,7 @@ public class ExerciseViewModel extends AndroidViewModel {
 
     }
 
-    public void insert(Exercise... exercises){
+    public void insert(List<Exercise> exercises){
         repository.insert(exercises);
     }
 

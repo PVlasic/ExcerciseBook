@@ -52,7 +52,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
         if(dayId == -1){
             Log.d("workTest", "dayId EMPTY");
-            dayViewModel.getLatestInsertedExerciseDay().observe(this, dayObserver);
+            dayViewModel.getLatestInsertedExerciseDay(userId).observe(this, dayObserver);
         } else {
             Log.d("workTest", "dayId RECEIVED");
             exerciseViewModel.getAllExercisesByDayId(dayId).observe(this, exercisesObserver);
@@ -123,7 +123,7 @@ public class WorkoutActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        dayViewModel.getLatestInsertedExerciseDay().removeObserver(dayObserver);
+        dayViewModel.getLatestInsertedExerciseDay(userId).removeObserver(dayObserver);
 
         if(dayId != -1){
             exerciseViewModel.getAllExercisesByDayId(dayId).removeObserver(exercisesObserver);

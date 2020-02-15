@@ -15,8 +15,8 @@ public class ExerciseRepository {
         AppDatabase database = AppDatabase.getAppDatabase(application);
         exerciseDAO = database.exerciseDAO();
     }
-    public void insert(Exercise... exercises){
-        new ExerciseRepository.InsertExerciseAsyncTask(exerciseDAO).execute(exercises);
+    public void insert(List<Exercise> exercises){
+        new ExerciseRepository.InsertExerciseAsyncTask(exerciseDAO).execute(new MyTaskParams(exercises));
     }
 
     public void update(List<Exercise> exercises){
@@ -37,7 +37,7 @@ public class ExerciseRepository {
      on a different thread (in the background) so we are using async task.
      Room does not let doing these operations on the main thread.
      **/
-    private static class InsertExerciseAsyncTask extends AsyncTask<Exercise, Void, Void> {
+    private static class InsertExerciseAsyncTask extends AsyncTask<MyTaskParams, Void, Void> {
         private ExerciseDAO exerciseDAO;
 
         private InsertExerciseAsyncTask(ExerciseDAO exerciseDAO){
@@ -45,10 +45,8 @@ public class ExerciseRepository {
         }
 
         @Override
-        protected Void doInBackground(Exercise... exercises){
-            Integer size = exercises.length;
-            Log.d("newTest", "repo exercises size: " + size);
-            exerciseDAO.insert(exercises);
+        protected Void doInBackground(MyTaskParams... params){
+            exerciseDAO.insert(params[0].exercises);
             return null;
         }
     }

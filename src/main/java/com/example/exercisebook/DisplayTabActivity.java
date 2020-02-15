@@ -89,6 +89,15 @@ public class DisplayTabActivity extends AppCompatActivity {
                 }
             }
         });
+
+        FloatingActionButton backBtn = findViewById(R.id.buttonBackToUsers);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DisplayTabActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

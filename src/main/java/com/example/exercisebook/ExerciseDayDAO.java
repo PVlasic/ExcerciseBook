@@ -14,8 +14,8 @@ public interface ExerciseDayDAO {
     @Query("SELECT Id, userId, date FROM ExerciseDay WHERE userId=:userId ORDER BY date DESC")
     LiveData<List<ExerciseDay>> getAllDaysByUserId(long userId);
 
-    @Query("SELECT Id, userId, date FROM ExerciseDay ORDER BY Id DESC LIMIT 1")
-    LiveData<ExerciseDay> getLatestInsertedExerciseDay();
+    @Query("SELECT Id, userId, date FROM ExerciseDay WHERE userId=:userId ORDER BY Id DESC LIMIT 1")
+    LiveData<ExerciseDay> getLatestInsertedExerciseDay(long userId);
 
     @Insert
     void insert(ExerciseDay day);

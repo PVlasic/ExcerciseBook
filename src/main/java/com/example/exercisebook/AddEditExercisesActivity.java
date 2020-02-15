@@ -178,12 +178,8 @@ public class AddEditExercisesActivity extends AppCompatActivity {
             Log.d("myTest", exercise.getName());
         }
 
-        //exercises = exerciseViewModel.getAllExercisesByDayId(dayId);
-        Exercise[] exercisesFormatted = new Exercise[exercisesForInsert.size()];
-        exercisesFormatted = exercisesForInsert.toArray(exercisesFormatted);
-
         //inserted exercises are not for insert anymore
-        exerciseViewModel.insert(exercisesFormatted);
+        exerciseViewModel.insert(exercisesForInsert);
 
         exercisesForInsert.clear();
     }
