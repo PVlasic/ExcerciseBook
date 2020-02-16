@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class AddEditUserActivity extends AppCompatActivity {
     private EditText editTextFirstName;
     private EditText editTextLastName;
@@ -46,8 +48,8 @@ public class AddEditUserActivity extends AppCompatActivity {
     }
 
     private void handleUserPrompt(){
-        Button saveButton = findViewById(R.id.saveUserButton);
-        Button cancelButton = findViewById(R.id.cancelButton);
+        FloatingActionButton saveButton = findViewById(R.id.saveUserButton);
+        FloatingActionButton cancelButton = findViewById(R.id.cancelButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override

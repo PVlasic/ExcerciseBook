@@ -11,7 +11,9 @@
         android:id="@+id/recyclerViewMeasurementDays"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/measurement_day_item"/>
+        tools:listitem="@layout/measurement_day_item"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

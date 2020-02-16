@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -52,7 +54,7 @@ public class PickDate extends AppCompatActivity {
         userId = intent.getLongExtra(AddEditUserActivity.EXTRA_USER_ID, -1);
         final String dayType = intent.getStringExtra(DisplayTabActivity.EXTRA_DAY_TYPE);
 
-        Button saveDate = findViewById(R.id.saveDate);
+        FloatingActionButton saveDate = findViewById(R.id.saveDate);
 
         saveDate.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -14,11 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseHolder>{
     private List<Exercise> exercises = new ArrayList<>();
     private OnDeleteItemButtonClickListener deleteListener;
+    private Integer numOfButtonsSet = 0;
     @NonNull
     @Override
     public ExerciseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,50 +31,54 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseHolder holder, int position) {
+
+        Log.d("adapterTest", "onBindViewHolder");
+
         final Exercise currentExercise = exercises.get(position);
-        Log.d("test3", "on bind Name: " + currentExercise.getName() + " on bind sets: " + currentExercise.repetitionsBySet.size());
-        for(Integer i = 1; i <= currentExercise.repetitionsBySet.size(); ++i){
-            Log.d("test3", "value: " + currentExercise.repetitionsBySet.get(i));
-        }
+
         holder.nameTextView.setText(currentExercise.getName());
         holder.weightTextView.setText(currentExercise.getWeight().toString());
 
-        for(Integer index = 1; index <= currentExercise.getNumberOfSets(); ++index){
-            final Button btn = new Button(holder.setsContainer.getContext());
-            btn.setId(index);
+        if(numOfButtonsSet < exercises.size()) {
+            for (Integer index = 1; index <= currentExercise.getNumberOfSets(); ++index) {
+                final Button btn = new Button(holder.setsContainer.getContext());
+                btn.setId(index);
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, 100);
-            params.setMargins(5,5,5,10);
-            btn.setLayoutParams(params);
-            btn.setBackgroundResource(R.drawable.btn_circle_background);
-            btn.setTextSize(15);
-            btn.setTextColor(Color.parseColor("#EEEEEE"));
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, 100);
+                params.setMargins(5, 5, 5, 10);
+                btn.setLayoutParams(params);
+                btn.setBackgroundResource(R.drawable.btn_circle_background);
+                btn.setTextSize(15);
+                btn.setTextColor(Color.parseColor("#FFFFFF"));
 
-            if(currentExercise.repetitionsBySet.get(index, -1) != -1){
-                btn.setText(String.valueOf(currentExercise.repetitionsBySet.get(index)));
-            }
+                if (currentExercise.repetitionsBySet.get(index, -1) != -1) {
+                    btn.setText(String.valueOf(currentExercise.repetitionsBySet.get(index)));
+                }
 
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(currentExercise.repetitionsBySet.get(v.getId(), -1) == -1){
-                        currentExercise.repetitionsBySet.put(v.getId(), 5);
-                        btn.setText(String.valueOf(currentExercise.repetitionsBySet.get(v.getId())));
-                    } else {
-                        if(currentExercise.repetitionsBySet.get(v.getId()) != 0){
-                            currentExercise.repetitionsBySet.put(v.getId(), currentExercise.repetitionsBySet.get(v.getId()) - 1);
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (currentExercise.repetitionsBySet.get(v.getId(), -1) == -1) {
+                            currentExercise.repetitionsBySet.put(v.getId(), 5);
                             btn.setText(String.valueOf(currentExercise.repetitionsBySet.get(v.getId())));
                         } else {
-                            currentExercise.repetitionsBySet.delete(v.getId());
-                            btn.setText("");
+                            if (currentExercise.repetitionsBySet.get(v.getId()) != 0) {
+                                currentExercise.repetitionsBySet.put(v.getId(), currentExercise.repetitionsBySet.get(v.getId()) - 1);
+                                btn.setText(String.valueOf(currentExercise.repetitionsBySet.get(v.getId())));
+                            } else {
+                                currentExercise.repetitionsBySet.delete(v.getId());
+                                btn.setText("");
+                            }
                         }
-                    }
 
-                }
-            });
-            holder.setsContainer.addView(btn);
+                    }
+                });
+                holder.setsContainer.addView(btn);
+            }
+            numOfButtonsSet++;
         }
 
+        WorkoutActivity.exercisesForUpdate = exercises;
     }
 
     @Override

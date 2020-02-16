@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,8 +29,8 @@ public class AddEditExercisesActivity extends AppCompatActivity {
 
     private Date date = new Date();
 
-    private List<String> pickedExerciseNames = new ArrayList<String>();
-    private List<Exercise> exercisesForInsert = new ArrayList<Exercise>();
+    private List<String> pickedExerciseNames = new ArrayList<>();
+    private List<Exercise> exercisesForInsert = new ArrayList<>();
 
 
     private String[] allExercises = new String[]{"Squat", "Bench Press", "Dumbell Row", "Military Press",
@@ -39,7 +41,6 @@ public class AddEditExercisesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("myTest", "addEx onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_exercise_layout);
 
@@ -61,8 +62,8 @@ public class AddEditExercisesActivity extends AppCompatActivity {
 
         setUpNamePicker();
 
-        Button addExerciseBtn = findViewById(R.id.addExercise);
-        Button finishBtn = findViewById(R.id.saveExercises);
+        FloatingActionButton addExerciseBtn = findViewById(R.id.addExercise);
+        FloatingActionButton finishBtn = findViewById(R.id.saveExercises);
 
 
         addExerciseBtn.setOnClickListener(new View.OnClickListener() {
@@ -79,8 +80,6 @@ public class AddEditExercisesActivity extends AppCompatActivity {
 
                         exercise.setName(namePicker.getDisplayedValues()[namePicker.getValue()]);
                         exercise.setNumberOfSets(setPicker.getValue());
-
-
                         exercise.setWeight(Double.parseDouble(weightPicker.getText().toString()));
 
                         exercisesForInsert.add(exercise);
@@ -107,7 +106,6 @@ public class AddEditExercisesActivity extends AppCompatActivity {
                     if(dayId == -1){
                         if(userId != -1 && date != null){
                             ExerciseDay day = new ExerciseDay(userId, date);
-                            Log.d("myTest", "dayId EMPTY");
                             exerciseViewModel.insertAllWithParent(day, exercisesForInsert);
                             Intent intent = new Intent(AddEditExercisesActivity.this, WorkoutActivity.class);
                             intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, userId);
@@ -115,7 +113,6 @@ public class AddEditExercisesActivity extends AppCompatActivity {
 
                         }
                     } else {
-                        Log.d("myTest", "dayId RECEIVED: " + dayId);
                         insertExercises(dayId);
 
                         Intent intent = new Intent(AddEditExercisesActivity.this, WorkoutActivity.class);
@@ -138,9 +135,8 @@ public class AddEditExercisesActivity extends AppCompatActivity {
             exerciseViewModel.getAllExercisesByDayId(dayId).observe(this, new Observer<List<Exercise>>() {
                 @Override
                 public void onChanged(List<Exercise> exercises) {
-                    Log.d("myTest", "already saved exercises, onResume");
+
                     for(Exercise exercise: exercises){
-                        Log.d("myTest", "exercise: " + exercise.getName());
                         //querying already picked exercises for this day so they can be removed from the name picker
                         pickedExerciseNames.add(exercise.getName());
                         setUpNamePicker();
@@ -171,15 +167,14 @@ public class AddEditExercisesActivity extends AppCompatActivity {
     }
 
     private void insertExercises(long dayId){
-        Log.d("myTest", "exercises for insert");
+
         for(Exercise exercise: exercisesForInsert){
             exercise.setDayId(dayId);
-
-            Log.d("myTest", exercise.getName());
         }
 
-        //inserted exercises are not for insert anymore
-        exerciseViewModel.insert(exercisesForInsert);
+        Exercise[] formattedExercises = new Exercise[exercisesForInsert.size()];
+        formattedExercises = exercisesForInsert.toArray(formattedExercises);
+        exerciseViewModel.insert(formattedExercises);
 
         exercisesForInsert.clear();
     }

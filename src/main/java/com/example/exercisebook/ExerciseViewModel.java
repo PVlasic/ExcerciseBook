@@ -19,7 +19,7 @@ public class ExerciseViewModel extends AndroidViewModel {
 
     }
 
-    public void insert(List<Exercise> exercises){
+    public void insert(Exercise... exercises){
         repository.insert(exercises);
     }
 
@@ -37,7 +37,4 @@ public class ExerciseViewModel extends AndroidViewModel {
         return repository.getAllExercisesByDayId(id);
     }
 
-    public LiveData<Integer> getExercisesCount(){
-        return repository.getExerciseCount();
-    }
 }

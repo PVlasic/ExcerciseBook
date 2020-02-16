@@ -22,16 +22,13 @@ public abstract class ExerciseDAO {
     abstract LiveData<List<Exercise>> getAllExercisesById(long dayId);
 
     @Insert
-    abstract void insert(List<Exercise> exercises);
+    abstract void insert(Exercise... exercises);
 
     @Delete
     abstract void delete(Exercise exercise);
 
     @Update
     abstract void update(List<Exercise> exercises);
-
-    @Query("SELECT COUNT(Id) FROM Exercise")
-    abstract LiveData<Integer> getExerciseCount();
 
     @Insert(onConflict = REPLACE)
     abstract long insert(ExerciseDay day);
@@ -45,10 +42,12 @@ public abstract class ExerciseDAO {
         // Set companyId for all related employeeEntities
         for (Exercise exercise : exercises) {
             exercise.setDayId(dayId);
-            Log.d("myTest", "exercise name DAO " + exercise.getName() + " dayId: " + exercise.getDayId());
         }
 
-        insert(exercises);
+        Exercise[] formattedExercises = new Exercise[exercises.size()];
+        formattedExercises = exercises.toArray(formattedExercises);
+
+        insert(formattedExercises);
     }
 
 

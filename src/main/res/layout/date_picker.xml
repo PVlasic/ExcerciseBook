@@ -16,17 +16,13 @@
         android:elevation="10dp"
         />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/saveDate"
-        android:layout_marginTop="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_save"
-        android:drawablePadding="5dp"
-        android:background="@drawable/button_layout"
-        android:elevation="10dp"
-        android:padding="10dp"
-        android:text="Save"
-        android:textColor="#FAFAFA"
-        style="?android:attr/borderlessButtonStyle" />
+        android:layout_gravity="center"
+        android:layout_margin="32dp"
+        android:src="@drawable/ic_check"
+        android:backgroundTint="@color/colorAccent"
+        />
 </LinearLayout>

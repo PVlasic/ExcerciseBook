@@ -15,8 +15,8 @@ public class ExerciseRepository {
         AppDatabase database = AppDatabase.getAppDatabase(application);
         exerciseDAO = database.exerciseDAO();
     }
-    public void insert(List<Exercise> exercises){
-        new ExerciseRepository.InsertExerciseAsyncTask(exerciseDAO).execute(new MyTaskParams(exercises));
+    public void insert(Exercise... exercises){
+        new ExerciseRepository.InsertExerciseAsyncTask(exerciseDAO).execute(exercises);
     }
 
     public void update(List<Exercise> exercises){
@@ -31,13 +31,12 @@ public class ExerciseRepository {
         new InsertAllAsyncTask(exerciseDAO).execute(new MyTaskParams(day, exercises));
     }
     public LiveData<List<Exercise>> getAllExercisesByDayId(long id) { return exerciseDAO.getAllExercisesById(id);}
-    public LiveData<Integer> getExerciseCount(){ return exerciseDAO.getExerciseCount();}
     /**
      We want to do our database operations(insert, update, delete)
      on a different thread (in the background) so we are using async task.
      Room does not let doing these operations on the main thread.
      **/
-    private static class InsertExerciseAsyncTask extends AsyncTask<MyTaskParams, Void, Void> {
+    private static class InsertExerciseAsyncTask extends AsyncTask<Exercise, Void, Void> {
         private ExerciseDAO exerciseDAO;
 
         private InsertExerciseAsyncTask(ExerciseDAO exerciseDAO){
@@ -45,8 +44,8 @@ public class ExerciseRepository {
         }
 
         @Override
-        protected Void doInBackground(MyTaskParams... params){
-            exerciseDAO.insert(params[0].exercises);
+        protected Void doInBackground(Exercise... exercises){
+            exerciseDAO.insert(exercises);
             return null;
         }
     }

@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorkoutActivity extends AppCompatActivity {
@@ -22,16 +25,18 @@ public class WorkoutActivity extends AppCompatActivity {
     private final ExerciseAdapter exerciseAdapter = new ExerciseAdapter();
     private Observer<ExerciseDay> dayObserver;
     private Observer<List<Exercise>> exercisesObserver;
-    private List<Exercise> fetchedExercises;
     private long userId;
     private long dayId;
+    public static List<Exercise> exercisesForUpdate = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exercise_items_layout);
         recyclerView = findViewById(R.id.recyclerViewExercises);
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(WorkoutActivity.this));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(exerciseAdapter);
 
         exerciseViewModel = ViewModelProviders.of(this).get(ExerciseViewModel.class);
         dayViewModel = ViewModelProviders.of(this).get(ExerciseDayViewModel.class);
@@ -51,32 +56,21 @@ public class WorkoutActivity extends AppCompatActivity {
         });
 
         if(dayId == -1){
-            Log.d("workTest", "dayId EMPTY");
             dayViewModel.getLatestInsertedExerciseDay(userId).observe(this, dayObserver);
         } else {
-            Log.d("workTest", "dayId RECEIVED");
             exerciseViewModel.getAllExercisesByDayId(dayId).observe(this, exercisesObserver);
         }
 
-        Button finishButton = findViewById(R.id.finishWorkoutBtn);
+        FloatingActionButton finishButton = findViewById(R.id.finishWorkoutBtn);
 
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(fetchedExercises != null && userId != -1){
+                if(exercisesForUpdate != null && userId != -1){
                     Intent intent = new Intent(WorkoutActivity.this, DisplayTabActivity.class);
 
-                    for(Exercise e: exerciseAdapter.getExercises()){
-                            Log.d("myTest3: ","Id: " + e.getId() + " Name: " + e.getName());
-
-                            for(Integer i = 0; i < e.repetitionsBySet.size(); ++i){
-                                Log.d("myTest3: ","Set: " + (i + 1) +" Reps: " + e.repetitionsBySet.get(i + 1));
-                            }
-
-                    }
-
-                    exerciseViewModel.update(exerciseAdapter.getExercises());
-                    Toast.makeText(WorkoutActivity.this, "Workout saved. Total lifted: " + totalLifted(fetchedExercises), Toast.LENGTH_LONG).show();
+                    exerciseViewModel.update(exercisesForUpdate);
+                    Toast.makeText(WorkoutActivity.this, "Workout saved. Total lifted: " + totalLifted(exercisesForUpdate), Toast.LENGTH_LONG).show();
                     intent.putExtra(AddEditUserActivity.EXTRA_USER_ID, userId);
                     startActivity(intent);
                 }
@@ -91,7 +85,6 @@ public class WorkoutActivity extends AppCompatActivity {
             public void onChanged(ExerciseDay day) {
                 if(day != null){
                     dayId = day.getId();
-                    Log.d("workTest", "INSIDE dayObserver dayId: " + dayId);
                     exerciseViewModel.getAllExercisesByDayId(dayId).observe(WorkoutActivity.this, exercisesObserver);
                 }
             }
@@ -100,24 +93,9 @@ public class WorkoutActivity extends AppCompatActivity {
         exercisesObserver = new Observer<List<Exercise>>() {
             @Override
             public void onChanged(List<Exercise> exercises) {
-                Log.d("myTest3", "INSIDE exercisesObserver");
                 exerciseAdapter.setExercises(exercises);
-                fetchedExercises = exercises;
-
-                recyclerView.setLayoutManager(new LinearLayoutManager(WorkoutActivity.this));
-                recyclerView.setHasFixedSize(true);
-                recyclerView.setAdapter(exerciseAdapter);
-
             }
         };
-    }
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent();
-        intent.putExtra(AddEditExercisesActivity.EXTRA_DAY_ID, -1);
-        setResult(RESULT_OK, intent);
-
-        super.onBackPressed();
     }
 
     @Override

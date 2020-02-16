@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.Date;
 
 public class AddEditMeasurementsActivity extends AppCompatActivity {
@@ -70,7 +72,7 @@ public class AddEditMeasurementsActivity extends AppCompatActivity {
             setTitle("Add New Measurements");
         }
 
-        Button saveMeasurementsBtn = findViewById(R.id.saveMeasurement);
+        FloatingActionButton saveMeasurementsBtn = findViewById(R.id.saveMeasurement);
 
         saveMeasurementsBtn.setOnClickListener(new View.OnClickListener() {
             @Override

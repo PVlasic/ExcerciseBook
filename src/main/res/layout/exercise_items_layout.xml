@@ -16,25 +16,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:paddingBottom="100dp"
+            android:clipToPadding="false"
             tools:listitem="@layout/exercise_item" />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/finishWorkoutBtn"
-                android:layout_marginTop="40dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
-                android:background="@drawable/button_layout"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:elevation="10dp"
-                android:padding="10dp"
-                android:text="Finish"
-                android:textColor="#FAFAFA"
-                android:layout_centerInParent="true"
-                style="?android:attr/borderlessButtonStyle" />
-        </RelativeLayout>
     </LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/finishWorkoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_margin="32dp"
+        android:src="@drawable/ic_check"
+        android:backgroundTint="@color/colorAccent"
+        />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
